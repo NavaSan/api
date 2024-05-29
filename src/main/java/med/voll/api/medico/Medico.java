@@ -14,11 +14,13 @@ import med.voll.api.direccion.Direccion;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Medico {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre;
     private String email;
+    private String telefono;
     private String documento;
     @Enumerated(EnumType.STRING)
     private Especialidad especialidad;
@@ -29,7 +31,36 @@ public class Medico {
         this.nombre = datosRegistroMedico.nombre();
         this.email = datosRegistroMedico.email();
         this.documento = datosRegistroMedico.documento();
+        this.telefono = datosRegistroMedico.telefono();
         this.especialidad = datosRegistroMedico.especialidad();
         this.direccion = new Direccion(datosRegistroMedico.direccion());
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public String getDocumento() {
+        return documento;
+    }
+
+    public Especialidad getEspecialidad() {
+        return especialidad;
+    }
+
+    public Direccion getDireccion() {
+        return direccion;
     }
 }
