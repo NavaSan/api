@@ -17,9 +17,11 @@ import java.time.ZoneOffset;
 @Service
 public class TokenService {
 
+    private String apiSecret = "123456";
+
     public String generarToken(Usuario usuario){
         try {
-            Algorithm algorithm = Algorithm.HMAC256(usuario.getClave());
+            Algorithm algorithm = Algorithm.HMAC256(apiSecret);
             return JWT.create()
                     .withIssuer("voll med")
                     .withSubject(usuario.getLogin())
@@ -32,26 +34,22 @@ public class TokenService {
     }
 
     public String getSubject(String token) {
-        if (token == null){
-            throw new RuntimeException();
-        }
-        DecodedJWT verifier = null;
+        String subject = null;
         try {
-            Algorithm algorithm = Algorithm.HMAC256("123456");
-            verifier = JWT.require(algorithm)
-                    // specify any specific claim validations
+            Algorithm algorithm = Algorithm.HMAC256(apiSecret);
+            DecodedJWT verifier = JWT.require(algorithm)
                     .withIssuer("voll med")
                     .build()
                     .verify(token);
-            verifier.getSubject();
+            subject = verifier.getSubject();
         } catch (JWTVerificationException exception) {
             // Invalid signature/claims
+            throw new RuntimeException("verifier invalido", exception);
         }
-        if (verifier.getSubject() == null) {
-            throw new RuntimeException("Verifier invalido");
+        if (subject == null) {
+            throw new RuntimeException("verifier invalido");
         }
-
-        return verifier.getSubject();
+        return subject;
     }
 
     private Instant generarFechaExiracion(){
