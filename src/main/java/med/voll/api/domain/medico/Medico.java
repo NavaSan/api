@@ -50,34 +50,6 @@ public class Medico {
         }
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public String getDocumento() {
-        return documento;
-    }
-
-    public Especialidad getEspecialidad() {
-        return especialidad;
-    }
-
-    public Direccion getDireccion() {
-        return direccion;
-    }
-
     public void desactivarMedico() {
         this.activo = false;
     }
